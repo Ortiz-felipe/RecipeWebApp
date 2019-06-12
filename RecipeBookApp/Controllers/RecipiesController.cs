@@ -9,6 +9,8 @@ namespace RecipeBookApp.Controllers
 {
     public class RecipiesController : Controller
     {
+        //Requerido para tener el contexto de la app
+        //De esta forma se podran visualizar los contenidos de las recetas en la base de datos
         private ApplicationDbContext _context;
 
         public RecipiesController()

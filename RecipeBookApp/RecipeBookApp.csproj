@@ -186,6 +186,10 @@
     <Compile Include="Migrations\201906120017058_UpdatedRecipeModel.Designer.cs">
       <DependentUpon>201906120017058_UpdatedRecipeModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906120107293_AddNullableTotalViews.cs" />
+    <Compile Include="Migrations\201906120107293_AddNullableTotalViews.Designer.cs">
+      <DependentUpon>201906120107293_AddNullableTotalViews.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -277,6 +281,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906120017058_UpdatedRecipeModel.resx">
       <DependentUpon>201906120017058_UpdatedRecipeModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906120107293_AddNullableTotalViews.resx">
+      <DependentUpon>201906120107293_AddNullableTotalViews.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
