@@ -1,0 +1,35 @@
+﻿@model List<RecipeBookApp.Models.Recipe>
+@{
+    ViewBag.Title = "Recipes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Recipes</h2>
+
+@if (!Model.Any())
+{
+    <p>Currently, We don't have any recipes to show...</p>
+}
+else
+{
+    <table>
+        <thead>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Author</th>
+        </thead>
+        <tbody>
+        @foreach (var recipe in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(recipe.Name, "Edit", "Recipies", new { id = recipe.Id}, null)</td>
+                <td>@recipe.Description</td>
+                <td>@recipe.UserId</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+    <p>@Html.ActionLink("New Recipe", "New", "Recipes", null, new { @class = "btn btn-primary"})</p>
+
