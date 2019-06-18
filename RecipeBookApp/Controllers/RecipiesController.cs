@@ -32,14 +32,73 @@ namespace RecipeBookApp.Controllers
             //Al hacer eso, no generara una query a la BD para obtener el contenido.
             //A continuacion, existen dos formas, en diferido y delegando la responsabilidad de iterar en la vista
             //O, al final de la instruccion, llamar al metodo
-            var recipies = _context.Recipes.ToList();
+
+
+            //Esto son lineas de prueba, lo que se acaba de realizar en la siguiente linea, es llamar a un metodo GetRecipes(), que
+            //Devuelve un IEnumerable de recetas. simplemente con los fines de probar la funcionalidad de Index y Edit
+            //IEnumerable es una Interfaz de List(), que devuelve una lista sin los metodos nativos de una Lista (Tales como agregar, eliminar, etc)
+            var recipies = GetRecipes();
 
             return View(recipies);
         }
 
         public ActionResult Edit(int id)
         {
-            throw new NotImplementedException();
+            //El resultado de esta asignacion a var recipe, devuelve el primer elemento de la lista que coincida con el valor pasado por parametro
+            //Usaremos LINQ con una expresion LAMBDA para obtener dicho elemento
+            //Esto ( r => r.id == id), que se lee como "r tal que r.id == id", buscara el primer elemento dentro de la lista, que coincida con id
+            //Estas mismas expresiones las usaremos para hacer peticiones a la base de datos
+            var recipe = GetRecipes().SingleOrDefault(r => r.Id == id);
+            return View(recipe);
+            
+        }
+
+        private IEnumerable<Recipe> GetRecipes()
+        {
+            var recipeList = new List<Recipe>
+            {
+                new Recipe
+                {
+                    Id = 1,
+                    UserId = 1,
+                    Name = "First Recipe",
+                    Description = "Here it's the recipe description",
+                    Ingredients = "This is going to be a list of ingredients to show on the client",
+                    TotalViews = 0
+                },
+
+                new Recipe
+                {
+                    Id = 2,
+                    UserId = 1,
+                    Name = "Second Recipe",
+                    Description = "Here it's the recipe description",
+                    Ingredients = "This is going to be a list of ingredients to show on the client",
+                    TotalViews = 5
+                },
+
+                new Recipe
+                {
+                    Id = 3,
+                    UserId = 2,
+                    Name = "Third Recipe",
+                    Description = "Here it's the recipe description",
+                    Ingredients = "This is going to be a list of ingredients to show on the client",
+                    TotalViews = 4
+                },
+
+                new Recipe
+                {
+                    Id = 4,
+                    UserId = 2,
+                    Name = "Fourth Recipe",
+                    Description = "Here it's the recipe description",
+                    Ingredients = "This is going to be a list of ingredients to show on the client",
+                    TotalViews = 100
+                }
+            };
+
+            return recipeList;
         }
     }
 }
