@@ -11,18 +11,19 @@ namespace RecipeBookApp.Models
     {
         public int Id { get; set; }
 
-        [Required] //Data Annotation define en la BD que el elemento no admite nulls
+        [Required(ErrorMessage = "Please enter a Recipe Name")] //Data Annotation define en la BD que el elemento no admite nulls
         [StringLength(50)] //Define la longitud del string a almacenar, en este caso 50 caracteres
         public string Name { get; set; }
 
         public int UserId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter a description for the recipe")]
         public string Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please provide the ingredients for the recipe")]
         public string Ingredients { get; set; }
 
+        [Display(Name = "Total Views")]//Data Annotation, con este valor es que se mostrara en la vista
         public int? TotalViews { get; set; }
     }
 }
