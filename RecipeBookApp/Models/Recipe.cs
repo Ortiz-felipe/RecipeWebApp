@@ -15,7 +15,9 @@ namespace RecipeBookApp.Models
         [StringLength(50)] //Define la longitud del string a almacenar, en este caso 50 caracteres
         public string Name { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
+
+        public string UserName { get; set; }
 
         [Required(ErrorMessage = "Please enter a description for the recipe")]
         public string Description { get; set; }
@@ -25,5 +27,6 @@ namespace RecipeBookApp.Models
 
         [Display(Name = "Total Views")]//Data Annotation, con este valor es que se mostrara en la vista
         public int? TotalViews { get; set; }
+
     }
 }

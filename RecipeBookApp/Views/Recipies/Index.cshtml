@@ -3,15 +3,15 @@
     ViewBag.Title = "Recipes";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <div class="container mt-3">
-        <h2 class="mt-3">Recipes</h2>
+<div class="container mt-3">
+    <h2 class="mt-3">Recipes</h2>
 
-        @if (!Model.Any())
-        {
-            <p>Currently, We don't have any recipes to show...</p>
-        }
-        else
-        {
+    @if (!Model.Any())
+    {
+        <p>Currently, We don't have any recipes to show...</p>
+    }
+    else
+    {
         <div class="container mt-3 mb-3">
             @*<table class="table table-active">
                 <thead>
@@ -32,7 +32,7 @@
                     }
                 </tbody>
             </table>*@
-            <div class="row">
+            <div class="row" id="recipes">
                 @foreach (var recipe in Model)
                 {
                     <div class="col-md-6">
@@ -43,7 +43,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">@recipe.Name</h5>
                                 <p class="card-text">@recipe.Description</p>
-                                @Html.ActionLink("Edit Recipe", "Edit", "Recipies", new { id = recipe.Id }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("View Recipe", "Details", "Recipies", new { id = recipe.Id }, new { @class = "btn btn-primary js-update", @recipe = recipe.Id })
                             </div>
                         </div>
                     </div>
@@ -51,10 +51,26 @@
             </div>
 
         </div>
-        }
-        <div class="container mt-3">
-            <p>@Html.ActionLink("New Recipe", "New", "Recipies", null, new { @class = "btn btn-primary" })</p>
-        </div>        
-    </div>
+    }
+    <div class="container mt-3">
+        <p>@Html.ActionLink("New Recipe", "New", "Recipies", null, new { @class = "btn btn-primary" })</p>
+    </div>        
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var id = $(a).attr("recipe");
+            console.log(id);
+            $("#recipes").on("click", ".js-update", function() {
+                $.ajax({
+                    url: "API/recipes/"
+                })
+            })
+        });
+    </script>
+    
+}
 
 

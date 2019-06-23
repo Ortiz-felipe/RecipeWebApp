@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using RecipeBookApp.Models;
 using RecipeBookApp.ViewModel;
 
@@ -43,6 +44,10 @@ namespace RecipeBookApp.Controllers
             return View(recipes);
         }
 
+        //Metodo encargado de crear el modelo del formulario de la receta
+        //GET
+        [HttpGet]
+        [Authorize]
         public ActionResult New()
         {
             
@@ -54,8 +59,9 @@ namespace RecipeBookApp.Controllers
             return View("RecipeForm", viewModel);
         }
 
-
+        //Metodo encargado de la validacion del modelo del formulario de la receta
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Save(Recipe recipe)
         {
@@ -68,6 +74,9 @@ namespace RecipeBookApp.Controllers
 
             if (recipe.Id == 0)
             {
+                recipe.UserId = HttpContext.User.Identity.GetUserId();
+                recipe.UserName = HttpContext.User.Identity.GetUserName();
+                recipe.TotalViews = 0;
                 _context.Recipes.Add(recipe);
             }
             else
@@ -86,7 +95,7 @@ namespace RecipeBookApp.Controllers
         }
 
 
-
+        [Authorize]
         public ActionResult Edit(int id)
         {
             //El resultado de esta asignacion a var recipe, devuelve el primer elemento de la lista que coincida con el valor pasado por parametro
@@ -113,61 +122,70 @@ namespace RecipeBookApp.Controllers
         {
             var recipe = _context.Recipes.SingleOrDefault(r => r.Id == id);
 
+            recipe.TotalViews++;
+
+            //var views = recipe.TotalViews;
+
+            //recipe.TotalViews = views + 1;
+
             if (recipe == null)
             {
                 return HttpNotFound();
             }
 
+            _context.SaveChanges();
+
             return View(recipe);
         }
 
-        private IEnumerable<Recipe> GetRecipes()
-        {
-            var recipeList = new List<Recipe>
-            {
-                new Recipe
-                {
-                    Id = 1,
-                    UserId = 1,
-                    Name = "First Recipe",
-                    Description = "Here it's the recipe description",
-                    Ingredients = "This is going to be a list of ingredients to show on the client",
-                    TotalViews = 0
-                },
+        //[System.Obsolete]
+        //private IEnumerable<Recipe> GetRecipes()
+        //{
+        //    var recipeList = new List<Recipe>
+        //    {
+        //        new Recipe
+        //        {
+        //            Id = 1,
+        //            UserId = 1,
+        //            Name = "First Recipe",
+        //            Description = "Here it's the recipe description",
+        //            Ingredients = "This is going to be a list of ingredients to show on the client",
+        //            TotalViews = 0
+        //        },
 
-                new Recipe
-                {
-                    Id = 2,
-                    UserId = 1,
-                    Name = "Second Recipe",
-                    Description = "Here it's the recipe description",
-                    Ingredients = "This is going to be a list of ingredients to show on the client",
-                    TotalViews = 5
-                },
+        //        new Recipe
+        //        {
+        //            Id = 2,
+        //            UserId = 1,
+        //            Name = "Second Recipe",
+        //            Description = "Here it's the recipe description",
+        //            Ingredients = "This is going to be a list of ingredients to show on the client",
+        //            TotalViews = 5
+        //        },
 
-                new Recipe
-                {
-                    Id = 3,
-                    UserId = 2,
-                    Name = "Third Recipe",
-                    Description = "Here it's the recipe description",
-                    Ingredients = "This is going to be a list of ingredients to show on the client",
-                    TotalViews = 4
-                },
+        //        new Recipe
+        //        {
+        //            Id = 3,
+        //            UserId = 2,
+        //            Name = "Third Recipe",
+        //            Description = "Here it's the recipe description",
+        //            Ingredients = "This is going to be a list of ingredients to show on the client",
+        //            TotalViews = 4
+        //        },
 
-                new Recipe
-                {
-                    Id = 4,
-                    UserId = 2,
-                    Name = "Fourth Recipe",
-                    Description = "Here it's the recipe description",
-                    Ingredients = "This is going to be a list of ingredients to show on the client",
-                    TotalViews = 100
-                }
-            };
+        //        new Recipe
+        //        {
+        //            Id = 4,
+        //            UserId = 2,
+        //            Name = "Fourth Recipe",
+        //            Description = "Here it's the recipe description",
+        //            Ingredients = "This is going to be a list of ingredients to show on the client",
+        //            TotalViews = 100
+        //        }
+        //    };
 
-            return recipeList;
-        }
+        //    return recipeList;
+        //}
 
         
     }
