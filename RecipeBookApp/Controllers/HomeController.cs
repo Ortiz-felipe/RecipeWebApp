@@ -9,18 +9,13 @@ namespace RecipeBookApp.Controllers
 {
     public class HomeController : Controller
     {
-        private ApplicationDbContext _context;
-
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        }
 
         public ActionResult Index()
         {
-            var recipes = _context.Recipes.ToList().GetRange(0, 3);
+            var context = new ApplicationDbContext();
+            var recipes = context.Recipes.ToList().GetRange(0, 3);
 
-            return View();
+            return View(recipes);
         }
 
         public ActionResult About()
