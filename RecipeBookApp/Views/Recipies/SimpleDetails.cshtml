@@ -1,12 +1,11 @@
 ﻿@model RecipeBookApp.Models.Recipe
-
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "SimpleDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-    <div class="container mt-sm-3 mt-md-3">
-        <h2>@Model.Name</h2>
+}   
+    
+    <div class="container mt-sm-3 mt-md-3">        
+        <h2>@Model.Name</h2>        
     </div>
     <hr />
     <div class="container mt-3 mt-sm-3 mt-md-3">
@@ -28,9 +27,12 @@
             </dd>
             <dt class="col-sm-3 col-md-3">@Html.DisplayNameFor(m => Model.Description)</dt>
             <dd class="col-sm-3 col-md-3">@Html.DisplayFor(m => Model.Description)</dd>
+
         </dl>
+
     </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary"}) |
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary"})
-</p>
+    <div class="container">
+        @Html.ActionLink("Go back", "Index", "Home", null, new { @class = "btn btn-primary"})
+    </div>
+
+

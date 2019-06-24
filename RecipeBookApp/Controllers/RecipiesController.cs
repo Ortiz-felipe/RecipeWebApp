@@ -8,7 +8,7 @@ using RecipeBookApp.Models;
 using RecipeBookApp.ViewModel;
 
 namespace RecipeBookApp.Controllers
-{
+{    
     public class RecipiesController : Controller
     {
         //Requerido para tener el contexto de la app
@@ -44,10 +44,26 @@ namespace RecipeBookApp.Controllers
             return View(recipes);
         }
 
+        public ActionResult GetRecipesByUserId()
+        {
+            if (User.Identity.GetUserId() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var userId = User.Identity.GetUserId();
+            IEnumerable<Recipe> recipesByUserId = _context
+            .Recipes
+            .Where(r => r.UserId.Contains(userId))
+            .ToList();
+
+            return View(recipesByUserId);
+
+        }
+
         //Metodo encargado de crear el modelo del formulario de la receta
         //GET
-        [HttpGet]
-        [Authorize]
+        [HttpGet]        
         public ActionResult New()
         {
             
@@ -60,8 +76,7 @@ namespace RecipeBookApp.Controllers
         }
 
         //Metodo encargado de la validacion del modelo del formulario de la receta
-        [HttpPost]
-        [Authorize]
+        [HttpPost]        
         [ValidateAntiForgeryToken]
         public ActionResult Save(Recipe recipe)
         {
@@ -93,9 +108,7 @@ namespace RecipeBookApp.Controllers
             return RedirectToAction("Index", "Recipies");
 
         }
-
-
-        [Authorize]
+                        
         public ActionResult Edit(int id)
         {
             //El resultado de esta asignacion a var recipe, devuelve el primer elemento de la lista que coincida con el valor pasado por parametro
@@ -107,7 +120,7 @@ namespace RecipeBookApp.Controllers
             if (recipe == null)
             {
                 return HttpNotFound();
-            }
+            }            
 
             var viewModel = new RecipeFormViewModel
             {
@@ -118,6 +131,7 @@ namespace RecipeBookApp.Controllers
             
         }
 
+        [AllowAnonymous]
         public ActionResult Details(int id)
         {
             var recipe = _context.Recipes.SingleOrDefault(r => r.Id == id);
@@ -135,8 +149,14 @@ namespace RecipeBookApp.Controllers
 
             _context.SaveChanges();
 
+            if (recipe.UserId != HttpContext.User.Identity.GetUserId())
+            {
+                return View("SimpleDetails", recipe);
+            }
+
             return View(recipe);
         }
+        
 
         //[System.Obsolete]
         //private IEnumerable<Recipe> GetRecipes()

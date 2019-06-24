@@ -43,7 +43,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">@recipe.Name</h5>
                                 <p class="card-text">@recipe.Description</p>
-                                @Html.ActionLink("View Recipe", "Details", "Recipies", new { id = recipe.Id }, new { @class = "btn btn-primary js-update", @recipe = recipe.Id })
+                                @Html.ActionLink("View Recipe", "Details", "Recipies", new { id = recipe.Id }, new { @class = "btn btn-primary" })
                             </div>
                         </div>
                     </div>
@@ -56,21 +56,5 @@
         <p>@Html.ActionLink("New Recipe", "New", "Recipies", null, new { @class = "btn btn-primary" })</p>
     </div>        
 </div>
-
-@section scripts
-{
-    <script>
-        $(document).ready(function () {
-            var id = $(a).attr("recipe");
-            console.log(id);
-            $("#recipes").on("click", ".js-update", function() {
-                $.ajax({
-                    url: "API/recipes/"
-                })
-            })
-        });
-    </script>
-    
-}
 
 

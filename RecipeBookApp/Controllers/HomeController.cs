@@ -7,6 +7,7 @@ using RecipeBookApp.Models;
 
 namespace RecipeBookApp.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
 
