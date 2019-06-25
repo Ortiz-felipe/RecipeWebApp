@@ -43,7 +43,8 @@
                             <div class="card-body">
                                 <h5 class="card-title">@recipe.Name</h5>
                                 <p class="card-text">@recipe.Description</p>
-                                @Html.ActionLink("View Recipe", "Details", "Recipies", new { id = recipe.Id }, new { @class = "btn btn-primary" })
+                                <p class="card-text">Total Views: @recipe.TotalViews</p>
+                                @Html.ActionLink("View Recipe", "Details", "Recipes", new { id = recipe.Id }, new { @class = "btn btn-primary" })
                             </div>
                         </div>
                     </div>
@@ -53,7 +54,7 @@
         </div>
     }
     <div class="container mt-3">
-        <p>@Html.ActionLink("New Recipe", "New", "Recipies", null, new { @class = "btn btn-primary" })</p>
+        <p>@Html.ActionLink("New Recipe", "New", "Recipes", null, new { @class = "btn btn-primary" })</p>
     </div>        
 </div>
 

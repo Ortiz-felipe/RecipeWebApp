@@ -15,7 +15,7 @@
             <p>@Html.DisplayFor(m => Model.Name)</p>
         </div>
         <div>
-            @Html.ActionLink("Delete", "ConfirmDelete", new { id = Model.Id }, new { @class = "btn btn-primary ml-3" })
+            @Html.ActionLink("Delete", "ConfirmDelete", new { id = Model.Id }, new { @class = "btn btn-danger ml-3" })
             @Html.ActionLink("Go Back", "GetRecipesByUserId", null, new { @class = "btn btn-secondary ml-3" })
         </div>
     </div>

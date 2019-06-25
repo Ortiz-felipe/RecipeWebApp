@@ -30,7 +30,8 @@
             <dd class="col-sm-3 col-md-3">@Html.DisplayFor(m => Model.Description)</dd>
         </dl>
     </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary"}) |
-    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary"})
-</p>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })       
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-secondary" })
+        @Html.ActionLink("Delete", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger" })
+    </p>
