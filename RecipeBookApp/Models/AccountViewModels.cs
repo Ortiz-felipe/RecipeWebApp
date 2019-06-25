@@ -56,7 +56,7 @@ namespace RecipeBookApp.Models
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
-        public string Password { get; set; }
+        public string Password { get; set; }        
 
         [Display(Name = "¿Recordar cuenta?")]
         public bool RememberMe { get; set; }
