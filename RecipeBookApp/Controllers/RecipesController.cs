@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -9,13 +10,13 @@ using RecipeBookApp.ViewModel;
 
 namespace RecipeBookApp.Controllers
 {    
-    public class RecipiesController : Controller
+    public class RecipesController : Controller
     {
         //Requerido para tener el contexto de la app
         //De esta forma se podran visualizar los contenidos de las recetas en la base de datos
         private ApplicationDbContext _context;
 
-        public RecipiesController()
+        public RecipesController()
         {
             _context = new ApplicationDbContext();
         }
@@ -105,9 +106,10 @@ namespace RecipeBookApp.Controllers
             }
 
             _context.SaveChanges();
-            return RedirectToAction("Index", "Recipies");
+            return RedirectToAction("Index", "Recipes");
 
         }
+
                         
         public ActionResult Edit(int id)
         {
@@ -131,82 +133,58 @@ namespace RecipeBookApp.Controllers
             
         }
 
+        
         [AllowAnonymous]
         public ActionResult Details(int id)
         {
-            var recipe = _context.Recipes.SingleOrDefault(r => r.Id == id);
-
-            recipe.TotalViews++;
-
-            //var views = recipe.TotalViews;
-
-            //recipe.TotalViews = views + 1;
+            var recipe = _context.Recipes.SingleOrDefault(r => r.Id == id);           
 
             if (recipe == null)
             {
                 return HttpNotFound();
             }
 
+            recipe.TotalViews++;
+
             _context.SaveChanges();
 
-            if (recipe.UserId != HttpContext.User.Identity.GetUserId())
+            if (recipe.UserId != User.Identity.GetUserId())
             {
                 return View("SimpleDetails", recipe);
-            }
+            }            
 
             return View(recipe);
         }
-        
 
-        //[System.Obsolete]
-        //private IEnumerable<Recipe> GetRecipes()
-        //{
-        //    var recipeList = new List<Recipe>
-        //    {
-        //        new Recipe
-        //        {
-        //            Id = 1,
-        //            UserId = 1,
-        //            Name = "First Recipe",
-        //            Description = "Here it's the recipe description",
-        //            Ingredients = "This is going to be a list of ingredients to show on the client",
-        //            TotalViews = 0
-        //        },
 
-        //        new Recipe
-        //        {
-        //            Id = 2,
-        //            UserId = 1,
-        //            Name = "Second Recipe",
-        //            Description = "Here it's the recipe description",
-        //            Ingredients = "This is going to be a list of ingredients to show on the client",
-        //            TotalViews = 5
-        //        },
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-        //        new Recipe
-        //        {
-        //            Id = 3,
-        //            UserId = 2,
-        //            Name = "Third Recipe",
-        //            Description = "Here it's the recipe description",
-        //            Ingredients = "This is going to be a list of ingredients to show on the client",
-        //            TotalViews = 4
-        //        },
+            var recipes = _context.Recipes.SingleOrDefault(r => r.Id == id);
 
-        //        new Recipe
-        //        {
-        //            Id = 4,
-        //            UserId = 2,
-        //            Name = "Fourth Recipe",
-        //            Description = "Here it's the recipe description",
-        //            Ingredients = "This is going to be a list of ingredients to show on the client",
-        //            TotalViews = 100
-        //        }
-        //    };
+            if (recipes == null)
+            {
+                return HttpNotFound();
+            }
 
-        //    return recipeList;
-        //}
 
-        
+            return View(recipes);
+        }
+
+
+        //POST recipes/recipe/1
+        public ActionResult ConfirmDelete(int id)
+        {
+            var recipe = _context.Recipes.SingleOrDefault(r => r.Id == id);           
+
+            _context.Recipes.Remove(recipe);
+            _context.SaveChanges();
+
+            return RedirectToAction("GetRecipesByUserId", "Recipes");
+        }       
     }
 }

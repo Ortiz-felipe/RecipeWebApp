@@ -181,7 +181,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\RecipiesController.cs" />
+    <Compile Include="Controllers\RecipesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -215,6 +215,7 @@
     <Compile Include="ViewModel\RecipeFormViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="404.html" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -300,7 +301,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Recipies\Index.cshtml" />
+    <Content Include="Views\Recipes\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper-utils.min.js.map" />
@@ -310,11 +311,11 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Recipies\Edit.cshtml" />
-    <Content Include="Views\Recipies\RecipeForm.cshtml" />
-    <Content Include="Views\Recipies\Details.cshtml" />
-    <Content Include="Views\Recipies\SimpleDetails.cshtml" />
-    <Content Include="Views\Recipies\GetRecipesByUserId.cshtml" />
+    <Content Include="Views\Recipes\RecipeForm.cshtml" />
+    <Content Include="Views\Recipes\Details.cshtml" />
+    <Content Include="Views\Recipes\SimpleDetails.cshtml" />
+    <Content Include="Views\Recipes\GetRecipesByUserId.cshtml" />
+    <Content Include="Views\Recipes\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

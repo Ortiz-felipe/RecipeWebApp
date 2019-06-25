@@ -1,0 +1,21 @@
+﻿@model RecipeBookApp.Models.Recipe
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="container mt-sm-3 mt-md-3 mt-lg-3">
+        <div class="container mt-sm-3 mt-md-3 mt-lg-3">
+            <h1>Delete Recipe</h1>
+        </div>
+        <div class="container mt-sm-3 mt-md-3 mt-lg-3">
+            <p class="h4">Are you sure you want to delete this recipe?</p>
+        </div>
+        <div class="container mt-sm-3 mt-md-3 mt-lg-3">
+            <p>@Html.DisplayFor(m => Model.Name)</p>
+        </div>
+        <div>
+            @Html.ActionLink("Delete", "ConfirmDelete", new { id = Model.Id }, new { @class = "btn btn-primary ml-3" })
+            @Html.ActionLink("Go Back", "GetRecipesByUserId", null, new { @class = "btn btn-secondary ml-3" })
+        </div>
+    </div>

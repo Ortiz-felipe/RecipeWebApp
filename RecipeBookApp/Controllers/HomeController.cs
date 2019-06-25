@@ -14,7 +14,16 @@ namespace RecipeBookApp.Controllers
         public ActionResult Index()
         {
             var context = new ApplicationDbContext();
-            var recipes = context.Recipes.ToList().GetRange(0, 3);
+            var recipes = context.Recipes.ToList();
+
+            if (!recipes.Any())
+            {
+                recipes = new List<Recipe>();
+            }
+            else
+            {
+                recipes.GetRange(0, 3);
+            }
 
             return View(recipes);
         }
