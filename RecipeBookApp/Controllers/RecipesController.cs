@@ -27,11 +27,11 @@ namespace RecipeBookApp.Controllers
             _context.Dispose();
         }
 
-        // GET: Recipies
+        // GET: Recipes
         public ActionResult Index()
         {
             //Inicializamos una variable que contendra las recetas de la base de datos
-            //Esto se logra, accediendo al atributo _context, luego a su contexto "Recipies" el cual responde a un DbSet<Recipe>
+            //Esto se logra, accediendo al atributo _context, luego a su contexto "Recipes" el cual responde a un DbSet<Recipe>
             //Al hacer eso, no generara una query a la BD para obtener el contenido.
             //A continuacion, existen dos formas, en diferido y delegando la responsabilidad de iterar en la vista
             //O, al final de la instruccion, llamar al metodo

@@ -10,11 +10,22 @@ namespace RecipeBookApp.Controllers
     [AllowAnonymous]
     public class HomeController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public HomeController()
+        {
+            _context = new ApplicationDbContext();
+        }
 
         public ActionResult Index()
         {
-            var context = new ApplicationDbContext();
-            var recipes = context.Recipes.ToList().Take(3);
+
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+
+            var recipes = _context.Recipes.ToList().Take(3);
 
             if (!recipes.Any())
             {
